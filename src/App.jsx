@@ -52,6 +52,12 @@ const App = () => {
     });
   };
 
+  const completedHabits = habits.filter((habit) => {
+    return habit.completed;
+  }).length;
+
+  const totalHabits = habits.length;
+
   return (
     <main className="app">
       <section className="tracker-shell">
@@ -74,6 +80,16 @@ const App = () => {
 
           <button type="submit">Add Habit</button>
         </form>
+
+        <section className="progress-section">
+          <p>
+            Completed{' '}
+            <span>
+              {completedHabits} / {totalHabits}
+            </span>{' '}
+            habits
+          </p>
+        </section>
 
         <section className="habits-list">
           {habits.map((habit) => {
@@ -99,7 +115,6 @@ const App = () => {
                     Delete
                   </button>
                 </div>
-
               </article>
             );
           })}

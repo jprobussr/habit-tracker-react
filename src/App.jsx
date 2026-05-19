@@ -29,6 +29,21 @@ const App = () => {
     setHabitInput('');
   };
 
+  const handleToggleHabit = (id) => {
+    setHabits((prevHabits) => {
+      return prevHabits.map((habit) => {
+        if (habit.id === id) {
+          return {
+            ...habit,
+            completed: !habit.completed,
+          };
+        }
+
+        return habit;
+      });
+    });
+  };
+
   return (
     <main className="app">
       <section className="tracker-shell">
@@ -55,17 +70,22 @@ const App = () => {
         <section className="habits-list">
           {habits.map((habit) => {
             return (
-              <article className="habit-card" key={habit.id}>
-                <p>
-                  {habit.name}
-                </p>
+              <article
+                className={`habit-card ${habit.completed ? 'completed' : ''}`}
+                key={habit.id}
+              >
+                <p>{habit.name}</p>
 
-                <button type="button">Complete</button>
+                <button
+                  type="button"
+                  onClick={() => handleToggleHabit(habit.id)}
+                >
+                  {habit.completed ? 'Completed' : 'Complete'}
+                </button>
               </article>
-            )
+            );
           })}
         </section>
-
       </section>
     </main>
   );

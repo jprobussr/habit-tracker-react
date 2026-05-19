@@ -110,3 +110,12 @@
 
   cursor: pointer;
 }
+
+.habit-card.completed {
+  opacity: 0.7;
+}
+
+.habit-card.completed p {
+  text-decoration: line-through;
+  color: var(--muted);
+}

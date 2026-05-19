@@ -44,6 +44,14 @@ const App = () => {
     });
   };
 
+  const handleDeleteHabit = (id) => {
+    setHabits((prevHabits) => {
+      return prevHabits.filter((habit) => {
+        return habit.id !== id;
+      });
+    });
+  };
+
   return (
     <main className="app">
       <section className="tracker-shell">
@@ -76,12 +84,22 @@ const App = () => {
               >
                 <p>{habit.name}</p>
 
-                <button
-                  type="button"
-                  onClick={() => handleToggleHabit(habit.id)}
-                >
-                  {habit.completed ? 'Completed' : 'Complete'}
-                </button>
+                <div className="habit-actions">
+                  <button
+                    type="button"
+                    onClick={() => handleToggleHabit(habit.id)}
+                  >
+                    {habit.completed ? 'Completed' : 'Complete'}
+                  </button>
+                  <button
+                    type="button"
+                    className="delete-button"
+                    onClick={() => handleDeleteHabit(habit.id)}
+                  >
+                    Delete
+                  </button>
+                </div>
+
               </article>
             );
           })}

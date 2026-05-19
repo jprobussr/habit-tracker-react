@@ -72,3 +72,41 @@
 .habit-form button:hover {
   background: var(--accent-hover);
 }
+
+.habits-list {
+  display: grid;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.habit-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+}
+
+.habit-card p {
+  margin: 0;
+  font-weight: 500;
+  text-transform: uppercase;
+}
+
+.habit-card button {
+  border: none;
+  border-radius: 0.65rem;
+
+  padding: 0.7rem 1rem;
+
+  background: #22c55e;
+  color: white;
+
+  font: inherit;
+  font-weight: 600;
+
+  cursor: pointer;
+}

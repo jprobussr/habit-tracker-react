@@ -1,8 +1,16 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import './App.css';
 
 const App = () => {
-  const [habits, setHabits] = useState([]);
+  const [habits, setHabits] = useState(() => {
+    const savedHabits = localStorage.getItem('habits');
+
+    if (!savedHabits) {
+      return [];
+    }
+
+    return JSON.parse(savedHabits);
+  });
   const [habitInput, setHabitInput] = useState('');
   const [filter, setFilter] = useState('all');
 
@@ -70,6 +78,10 @@ const App = () => {
 
     return true;
   });
+
+  useEffect(() => {
+    localStorage.setItem('habits', JSON.stringify(habits));
+  }, [habits]);
 
   return (
     <main className="app">

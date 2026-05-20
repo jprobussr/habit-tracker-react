@@ -1,5 +1,10 @@
 import { useState, useEffect } from 'react';
 import './App.css';
+import HabitForm from './components/HabitForm.jsx';
+import ProgressSection from './components/ProgressSection.jsx';
+import FilterBar from './components/FilterBar.jsx';
+import HabitCard from './components/HabitCard.jsx';
+import HabitList from './HabitList.jsx';
 
 const App = () => {
   const [habits, setHabits] = useState(() => {
@@ -94,88 +99,21 @@ const App = () => {
           </p>
         </header>
 
-        <form className="habit-form" onSubmit={handleAddHabit}>
-          <input
-            type="text"
-            aria-label="Habit name"
-            placeholder="Enter a habit..."
-            value={habitInput}
-            onChange={handleHabitChange}
-          />
+        <HabitForm
+          habitInput={habitInput}
+          setHabitInput={setHabitInput}
+          handleAddHabit={handleAddHabit}
+          handleHabitChange={handleHabitChange}
+        />
 
-          <button type="submit">Add Habit</button>
-        </form>
+        <ProgressSection
+          completedHabits={completedHabits}
+          totalHabits={totalHabits}
+        />
 
-        <section className="progress-section">
-          <p>
-            Completed{' '}
-            <span>
-              {completedHabits} / {totalHabits}
-            </span>{' '}
-            habits
-          </p>
-        </section>
+        <FilterBar filter={filter} setFilter={setFilter} />
 
-        <section className="filter-bar">
-          <button
-            type="button"
-            className={filter === 'all' ? 'active-filter' : ''}
-            onClick={() => setFilter('all')}
-          >
-            All
-          </button>
-
-          <button
-            type="button"
-            className={filter === 'active' ? 'active-filter' : ''}
-            onClick={() => setFilter('active')}
-          >
-            Active
-          </button>
-
-          <button
-            type="button"
-            className={filter === 'completed' ? 'active-filter' : ''}
-            onClick={() => setFilter('completed')}
-          >
-            Complete
-          </button>
-        </section>
-
-        <section className="habits-list">
-          {filteredHabits.length === 0 ? (
-            <p className="empty-state">
-              No habits yet. Add your first habit above.
-            </p>
-          ) : (
-            filteredHabits.map((habit) => {
-              return (
-                <article
-                  className={`habit-card ${habit.completed ? 'completed' : ''}`}
-                  key={habit.id}
-                >
-                  <p>{habit.name}</p>
-
-                  <div className="habit-actions">
-                    <button
-                      type="button"
-                      onClick={() => handleToggleHabit(habit.id)}
-                    >
-                      {habit.completed ? 'Completed' : 'Complete'}
-                    </button>
-                    <button
-                      type="button"
-                      className="delete-button"
-                      onClick={() => handleDeleteHabit(habit.id)}
-                    >
-                      Delete
-                    </button>
-                  </div>
-                </article>
-              );
-            })
-          )}
-        </section>
+       <HabitList filteredHabits={filteredHabits} handleToggleHabit={handleToggleHabit} handleDeleteHabit={handleDeleteHabit} />
       </section>
     </main>
   );

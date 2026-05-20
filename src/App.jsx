@@ -4,6 +4,7 @@ import './App.css';
 const App = () => {
   const [habits, setHabits] = useState([]);
   const [habitInput, setHabitInput] = useState('');
+  const [filter, setFilter] = useState('all');
 
   const handleHabitChange = (e) => {
     setHabitInput(e.target.value);
@@ -58,6 +59,18 @@ const App = () => {
 
   const totalHabits = habits.length;
 
+  const filteredHabits = habits.filter((habit) => {
+    if (filter === 'active') {
+      return !habit.completed;
+    }
+
+    if (filter === 'completed') {
+      return habit.completed;
+    }
+
+    return true;
+  });
+
   return (
     <main className="app">
       <section className="tracker-shell">
@@ -91,33 +104,65 @@ const App = () => {
           </p>
         </section>
 
-        <section className="habits-list">
-          {habits.map((habit) => {
-            return (
-              <article
-                className={`habit-card ${habit.completed ? 'completed' : ''}`}
-                key={habit.id}
-              >
-                <p>{habit.name}</p>
+        <section className="filter-bar">
+          <button
+            type="button"
+            className={filter === 'all' ? 'active-filter' : ''}
+            onClick={() => setFilter('all')}
+          >
+            All
+          </button>
 
-                <div className="habit-actions">
-                  <button
-                    type="button"
-                    onClick={() => handleToggleHabit(habit.id)}
-                  >
-                    {habit.completed ? 'Completed' : 'Complete'}
-                  </button>
-                  <button
-                    type="button"
-                    className="delete-button"
-                    onClick={() => handleDeleteHabit(habit.id)}
-                  >
-                    Delete
-                  </button>
-                </div>
-              </article>
-            );
-          })}
+          <button
+            type="button"
+            className={filter === 'active' ? 'active-filter' : ''}
+            onClick={() => setFilter('active')}
+          >
+            Active
+          </button>
+
+          <button
+            type="button"
+            className={filter === 'completed' ? 'active-filter' : ''}
+            onClick={() => setFilter('completed')}
+          >
+            Complete
+          </button>
+        </section>
+
+        <section className="habits-list">
+          {filteredHabits.length === 0 ? (
+            <p className="empty-state">
+              No habits yet. Add your first habit above.
+            </p>
+          ) : (
+            filteredHabits.map((habit) => {
+              return (
+                <article
+                  className={`habit-card ${habit.completed ? 'completed' : ''}`}
+                  key={habit.id}
+                >
+                  <p>{habit.name}</p>
+
+                  <div className="habit-actions">
+                    <button
+                      type="button"
+                      onClick={() => handleToggleHabit(habit.id)}
+                    >
+                      {habit.completed ? 'Completed' : 'Complete'}
+                    </button>
+                    <button
+                      type="button"
+                      className="delete-button"
+                      onClick={() => handleDeleteHabit(habit.id)}
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </article>
+              );
+            })
+          )}
         </section>
       </section>
     </main>

@@ -66,6 +66,14 @@ const App = () => {
     });
   };
 
+  const handleClearCompleted = () => {
+    setHabits((prevHabits) => {
+      return prevHabits.filter((habit) => {
+        return !habit.completed;
+      });
+    });
+  };
+
   const completedHabits = habits.filter((habit) => {
     return habit.completed;
   }).length;
@@ -113,7 +121,21 @@ const App = () => {
 
         <FilterBar filter={filter} setFilter={setFilter} />
 
-       <HabitList filteredHabits={filteredHabits} handleToggleHabit={handleToggleHabit} handleDeleteHabit={handleDeleteHabit} />
+        {completedHabits > 0 && (
+          <button
+            type="button"
+            className="clear-completed-button"
+            onClick={handleClearCompleted}
+          >
+            Clear Completed
+          </button>
+        )}
+
+        <HabitList
+          filteredHabits={filteredHabits}
+          handleToggleHabit={handleToggleHabit}
+          handleDeleteHabit={handleDeleteHabit}
+        />
       </section>
     </main>
   );

@@ -191,3 +191,42 @@
   border-color: var(--accent);
   color: #0f172a;
 }
+
+@media (max-width: 640px) {
+  .app {
+    padding: 1rem;
+  }
+
+  .tracker-shell {
+    padding: 1.25rem;
+  }
+
+  .habit-form {
+    flex-direction: column;
+  }
+
+  .habit-form button {
+    width: 100%;
+  }
+
+  .filter-bar {
+    flex-wrap: wrap;
+  }
+
+  .filter-bar button {
+    flex: 1;
+  }
+
+  .habit-card {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .habit-actions {
+    flex-direction: column;
+  }
+
+  .habit-actions button {
+    width: 100%;
+  }
+}
